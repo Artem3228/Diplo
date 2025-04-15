@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Form, Modal, ProgressBar, Badge } from 'react-bootstrap';
-import { Edit, Award, BookOpen, User as UserIcon, LogOut } from 'react-feather';
+import { ArrowLeft, Home, Edit, Award, BookOpen, User as UserIcon, LogOut } from 'react-feather';
+import './styles/Profile.css';
 
-// Компонент аватара
 const Avatar = ({ src, className, style, onClick }) => (
   <img 
     src={src} 
@@ -14,7 +15,7 @@ const Avatar = ({ src, className, style, onClick }) => (
 );
 
 const Profile = () => {
-  // Состояния
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState('login');
@@ -27,34 +28,27 @@ const Profile = () => {
   const [editName, setEditName] = useState(false);
   const [newName, setNewName] = useState('');
 
-  // Данные платформы
-  const avatars = ['avatar1.png', 'avatar2.png', 'avatar3.png'];
+  const avatars = ['src/photo/xaker.jpg', 'src/photo/black_wite_xaker.jpg', 'avatar3.png'];
   const nicknames = [
     { level: 1, name: 'Новичок' },
     { level: 3, name: 'Ученик' },
     { level: 5, name: 'Знаток' }
   ];
 
-  // Загрузка пользователя
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
+    if (savedUser) setUser(JSON.parse(savedUser));
   }, []);
 
-  // Обработка формы
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // Регистрация (только запись в базу)
   const handleRegister = (e) => {
     e.preventDefault();
     setError('');
 
-    // Минимальная проверка ввода
     if (!formData.email.includes('@')) {
       setError('Введите корректный email');
       return;
@@ -70,13 +64,10 @@ const Profile = () => {
       return;
     }
 
-    // Имитация работы с базой данных
     const users = JSON.parse(localStorage.getItem('users') || '[]');
-    
-    // Создание нового пользователя
     const newUser = {
       email: formData.email,
-      password: formData.password, // В реальном приложении пароль должен хешироваться
+      password: formData.password,
       name: formData.email.split('@')[0],
       avatar: avatars[0],
       level: 1,
@@ -93,12 +84,10 @@ const Profile = () => {
     setShowAuthModal(false);
   };
 
-  // Авторизация (с проверкой)
   const handleLogin = (e) => {
     e.preventDefault();
     setError('');
 
-    // Проверка в базе данных
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const foundUser = users.find(u => 
       u.email === formData.email && 
@@ -115,47 +104,36 @@ const Profile = () => {
     setShowAuthModal(false);
   };
 
-  // Выход
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
   };
 
-  // Изменение аватара
   const handleAvatarChange = (avatar) => {
     const updatedUser = { ...user, avatar };
     setUser(updatedUser);
     localStorage.setItem('user', JSON.stringify(updatedUser));
   };
 
-  // Получение текущего никнейма
   const getCurrentNickname = () => {
-    const available = nicknames.filter(n => user.level >= n.level);
-    return available[available.length - 1].name;
+    const available = nicknames.filter(n => user?.level >= n.level);
+    return available[available.length - 1]?.name || 'Новичок';
   };
 
-  // UI для неавторизованных пользователей
   if (!user) {
     return (
-      <div className="text-center py-5">
+      <div className="auth-container">
         <h2>Ваш профиль</h2>
-        <p className="mb-4">Войдите или зарегистрируйтесь</p>
-        <div className="d-flex justify-content-center gap-3">
-          <Button variant="primary" onClick={() => {
-            setAuthMode('login');
-            setShowAuthModal(true);
-          }}>
+        <p>Войдите или зарегистрируйтесь</p>
+        <div className="auth-buttons">
+          <Button variant="primary" onClick={() => { setAuthMode('login'); setShowAuthModal(true); }}>
             Войти
           </Button>
-          <Button variant="outline-primary" onClick={() => {
-            setAuthMode('register');
-            setShowAuthModal(true);
-          }}>
+          <Button variant="outline-primary" onClick={() => { setAuthMode('register'); setShowAuthModal(true); }}>
             Регистрация
           </Button>
         </div>
 
-        {/* Модальное окно авторизации */}
         <Modal show={showAuthModal} onHide={() => setShowAuthModal(false)}>
           <Modal.Header closeButton>
             <Modal.Title>{authMode === 'login' ? 'Вход' : 'Регистрация'}</Modal.Title>
@@ -197,7 +175,7 @@ const Profile = () => {
                 </Form.Group>
               )}
               
-              {error && <div className="text-danger mb-3">{error}</div>}
+              {error && <div className="error-message">{error}</div>}
               
               <Button variant="primary" type="submit" className="w-100">
                 {authMode === 'login' ? 'Войти' : 'Зарегистрироваться'}
@@ -209,62 +187,67 @@ const Profile = () => {
     );
   }
 
-  // UI для авторизованных пользователей
   return (
-    <div className="profile-page container py-5">
-      <div className="row">
-        <div className="col-md-4">
-          <div className="card mb-4">
-            <div className="card-body text-center">
-              <div className="position-relative d-inline-block">
-                <Avatar 
-                  src={`/avatars/${user.avatar}`} 
-                  className="mb-3" 
-                  style={{ width: '150px', height: '150px' }}
-                />
-              </div>
-              
-              <h3 className="mb-3">
-                {user.name}
-              </h3>
-              
-              <div className="d-flex justify-content-center gap-2 mb-3">
-                <Badge bg="secondary">{getCurrentNickname()}</Badge>
-                <Badge bg="primary">Уровень {user.level}</Badge>
-              </div>
-              
-              <Button variant="outline-danger" onClick={handleLogout}>
-                <LogOut size={16} className="me-1" /> Выйти
+    <div className="profile-container">
+      <div className="profile-navigation">
+        <Button variant="link" onClick={() => navigate('/')} className="nav-button">
+          <Home size={20} />
+        </Button>
+        <Button variant="link" onClick={() => navigate(-1)} className="nav-button">
+          <ArrowLeft size={20} />
+        </Button>
+      </div>
+
+      <div className="profile-content">
+        <div className="profile-header">
+          <div className="avatar-container">
+            <Avatar 
+              src={`/avatars/${user.avatar}`} 
+              className="profile-avatar"
+              style={{ width: '120px', height: '120px' }}
+            />
+          </div>
+          
+          <div className="profile-info">
+            <h3 className="profile-name">
+              {user.name}
+              <Button variant="link" onClick={() => setEditName(!editName)}>
+                <Edit size={16} />
               </Button>
+            </h3>
+            
+            <div className="profile-badges">
+              <Badge bg="secondary">{getCurrentNickname()}</Badge>
+              <Badge bg="primary">Уровень {user.level}</Badge>
             </div>
           </div>
         </div>
-        
-        <div className="col-md-8">
-          <div className="card mb-4">
-            <div className="card-body">
-              <h4 className="card-title">
-                <Award className="text-warning me-2" /> Ваш прогресс
-              </h4>
-              
-              <div className="mb-3">
-                <h6>Уровень {user.level}</h6>
-                <ProgressBar 
-                  now={(user.xp / (user.level * 1000)) * 100} 
-                  label={`${Math.round((user.xp / (user.level * 1000)) * 100)}%`}
-                />
-                <div className="text-muted small mt-1">
-                  {user.xp} / {user.level * 1000} XP
-                </div>
+
+        <div className="progress-section">
+          <h4><Award className="text-warning me-2" />Ваш прогресс</h4>
+          
+          <div className="progress-container">
+            <div className="progress-bar-wrapper">
+              <ProgressBar 
+                now={(user.xp / (user.level * 1000)) * 100} 
+                label={`${Math.round((user.xp / (user.level * 1000)) * 100)}%`}
+                className="custom-progress-bar"
+              />
+              <div className="xp-counter">
+                {user.xp} / {user.level * 1000} XP
               </div>
-              
-              <div className="d-flex align-items-center">
-                <BookOpen className="me-2" />
-                <span>Пройдено курсов: {user.coursesCompleted}</span>
-              </div>
+            </div>
+            
+            <div className="courses-completed">
+              <BookOpen className="me-2" />
+              <span>Пройдено курсов: {user.coursesCompleted}</span>
             </div>
           </div>
         </div>
+
+        <Button variant="outline-danger" onClick={handleLogout} className="logout-button">
+          <LogOut size={16} className="me-1" /> Выйти
+        </Button>
       </div>
     </div>
   );
