@@ -1,0 +1,262 @@
+/* styles/Home.css */
+
+/* Базовые стили и переменные */
+:root {
+  --primary: #ddb137;
+  --secondary: #1c3627;
+  --accent: #ddb137a6;
+  --dark-bg: #4e4141; /* Фон секции курсов */
+  --card-bg: #ddb137; /* Фон карточек */
+  --light: #ecf0f1;
+}
+
+.home-page {  
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Герой-секция */
+.hero-section {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  padding: 5rem 0;
+  position: relative;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.hero-section .lead {
+  font-size: 1.25rem;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  opacity: 0.9;
+}
+
+/* Кнопки с анимацией */
+.btn-light, .btn-outline-light {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-light:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.btn-outline-light:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-3px);
+}
+
+/* Карточки преимуществ */
+.feature-card {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  animation: fadeIn 0.6s ease-out;
+  animation-fill-mode: both;
+  background: white;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.2s; }
+.feature-card:nth-child(2) { animation-delay: 0.4s; }
+.feature-card:nth-child(3) { animation-delay: 0.6s; }
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.feature-card svg {
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover svg {
+  transform: scale(1.1) rotate(5deg);
+  animation: pulse 1.5s infinite;
+}
+
+/* Статистика */
+.stats-section {
+  background: var(--light);
+  padding: 4rem 0;
+}
+
+.stats-section .col-md-4 {
+  transition: transform 0.3s ease;
+  animation: fadeIn 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.stats-section .col-md-4:nth-child(1) { animation-delay: 0.3s; }
+.stats-section .col-md-4:nth-child(2) { animation-delay: 0.5s; }
+.stats-section .col-md-4:nth-child(3) { animation-delay: 0.7s; }
+
+.stats-section .col-md-4:hover {
+  transform: translateY(-5px);
+}
+
+.stats-section svg {
+  transition: all 0.3s ease;
+}
+
+.stats-section .col-md-4:hover svg {
+  color: var(--accent);
+  transform: scale(1.2);
+}
+
+/* Секция популярных курсов */
+.popular-courses-section {
+  background-color: var(--dark-bg);
+  padding: 5rem 0;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--primary);
+  margin: 15px auto 0;
+}
+
+.courses-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.course-col {
+  flex: 0 0 calc(33.333% - 2rem);
+  max-width: calc(33.333% - 2rem);
+  animation: fadeIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.course-col:nth-child(1) { animation-delay: 0.2s; }
+.course-col:nth-child(2) { animation-delay: 0.4s; }
+.course-col:nth-child(3) { animation-delay: 0.6s; }
+
+.course-card {
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.course-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.course-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--secondary);
+}
+
+.xp-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.xp-container svg {
+  color: var(--secondary);
+  margin-right: 0.5rem;
+}
+
+.xp-text {
+  font-weight: 600;
+  color: var(--secondary);
+}
+
+.details-btn {
+  background-color: var(--secondary);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.details-btn:hover {
+  background-color: #14261d;
+  transform: translateY(-2px);
+}
+
+/* CTA секция */
+.cta-section {
+  background: var(--primary);
+  padding: 4rem 0;
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+  .course-col {
+    flex: 0 0 calc(50% - 2rem);
+    max-width: calc(50% - 2rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.2rem;
+  }
+  
+  .course-col {
+    flex: 0 0 100%;
+    max-width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .feature-card, .card {
+    margin-bottom: 1.5rem;
+  }
+   
+  .stats-section .col-md-4 {
+    margin-bottom: 2rem;
+  }
+}

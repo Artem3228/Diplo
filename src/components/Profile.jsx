@@ -227,16 +227,15 @@ const Profile = () => {
           <h4><Award className="text-warning me-2" />Ваш прогресс</h4>
           
           <div className="progress-container">
-            <div className="progress-bar-wrapper">
-              <ProgressBar 
-                now={(user.xp / (user.level * 1000)) * 100} 
-                label={`${Math.round((user.xp / (user.level * 1000)) * 100)}%`}
-                className="custom-progress-bar"
-              />
-              <div className="xp-counter">
-                {user.xp} / {user.level * 1000} XP
-              </div>
-            </div>
+  <div className="progress-bar-wrapper">
+    <ProgressBar
+      now={(user.xp / (user.level * 1000)) * 100} 
+      className="custom-progress-bar"
+    />
+  </div>
+  <div className="xp-counter">
+    {user.xp} / {user.level * 1000} XP
+  </div>
             
             <div className="courses-completed">
               <BookOpen className="me-2" />

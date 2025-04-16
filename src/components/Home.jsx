@@ -1,5 +1,6 @@
 import { BookOpen, Award, TrendingUp, Users, Star } from 'react-feather';
 import { Button } from 'react-bootstrap';
+import './styles/Home.css';
 
 const Home = () => {
   // Статистика платформы
@@ -86,32 +87,31 @@ const Home = () => {
       </section>
 
       {/* Популярные курсы */}
-      <section className="py-5">
-        <div className="container">
-          <h2 className="text-center mb-5">Популярные курсы</h2>
-          <div className="row g-4">
-            {popularCourses.map((course, index) => (
-              <div className="col-md-4" key={index}>
-                <div className="card h-100 border-0 shadow-sm">
-                  <div className="card-body">
-                    <span className="badge bg-secondary mb-2">{course.category}</span>
-                    <h5 className="card-title">{course.title}</h5>
-                    <div className="d-flex align-items-center mt-3">
-                      <Star className="text-warning me-2" />
-                      <span>{course.xp} XP за прохождение</span>
-                    </div>
-                  </div>
-                  <div className="card-footer bg-white border-0">
-                    <Button variant="primary" className="w-100">
-                      Подробнее
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ))}
+<section className="popular-courses py-5" style={{ backgroundColor: '#4e4141' }}>
+  <div className="container">
+    <h2 className="section-title text-center text-white mb-5">Популярные курсы</h2>
+    <div className="row">
+      {popularCourses.map((course, index) => (
+        <div className="col-md-4 mb-4" key={index}>
+          <div className="course-card h-100 p-4 text-center" style={{ backgroundColor: '#ddb137', borderRadius: '10px' }}>
+            <h3 className="course-title mb-3">{course.title}</h3>
+            <div className="xp-wrapper d-flex justify-content-center align-items-center mb-4">
+              <Star className="text-dark me-2" />
+              <span className="xp-text">{course.xp} XP за прохождение</span>
+            </div>
+            <Button 
+              variant="dark" 
+              className="details-btn"
+              style={{ borderRadius: '20px', padding: '8px 25px' }}
+            >
+              Подробнее
+            </Button>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* Призыв к действию */}
       <section className="py-5 bg-dark text-white text-center">

@@ -1,6 +1,7 @@
 import { FaHeadset, FaTrophy, FaDiscord, FaTelegram } from 'react-icons/fa';
 import { MdEmail, MdLocationOn } from 'react-icons/md';
 
+
 const Contacts = () => {
   return (
     <div className="contacts-page container py-5">

@@ -1,24 +1,23 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { User as UserIcon, Home } from 'react-feather';
 import './styles/Menu.css';
 
 const Menu = () => {
-  const navigate = useNavigate();
-
   return (
     <nav className="menu-container">
-      {/* Основные ссылки слева */}
-      <div className="menu-left">
-        <NavLink 
-          style={({isActive}) => isActive ? {color: 'lightyellow', textDecoration: 'none'} : {}} 
-          to="." 
-          end
-          className={({isActive}) => isActive ? 'activeLink menu-link' : 'link menu-link'}
-        >
-          <Home size={16} className="menu-icon" />
-          Главная
-        </NavLink>
+      {/* Главная слева */}
+      <NavLink 
+        to="." 
+        end
+        className={({isActive}) => isActive ? 'activeLink menu-link' : 'link menu-link'}
+      >
+        <Home size={16} className="menu-icon" />
+        Главная
+      </NavLink>
+
+      {/* Центральная группа */}
+      <div className="menu-center">
         <NavLink 
           to="courses"
           className={({isActive}) => isActive ? 'activeLink menu-link' : 'link menu-link'}
@@ -39,16 +38,14 @@ const Menu = () => {
         </NavLink>
       </div>
 
-      {/* Кнопка профиля справа */}
-      <div className="menu-right">
-        <NavLink 
-          to="profile" 
-          className={({isActive}) => isActive ? 'activeLink profile-link' : 'link profile-link'}
-        >
-          <UserIcon size={18} className="profile-icon" />
-          Профиль
-        </NavLink>
-      </div>
+      {/* Профиль справа */}
+      <NavLink 
+        to="profile" 
+        className={({isActive}) => isActive ? 'activeLink profile-link' : 'link profile-link'}
+      >
+        <UserIcon size={20} className="profile-icon" />
+        <span className="profile-text">Профиль</span>
+      </NavLink>
     </nav>
   );
 };

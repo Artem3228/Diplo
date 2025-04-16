@@ -1,54 +1,80 @@
 .menu-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #2c3e50;
-  }
-  
-  .menu-left, .menu-right {
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .menu-link {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s ease;
-  }
-  
-  .menu-link:hover {
-    color: lightyellow;
-  }
-  
-  .activeLink {
-    color: lightyellow;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .link {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .profile-link {
-    background-color: #3498db;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .profile-link:hover {
-    background-color: #2980b9;
-    color: white;
-  }
-  
-  .menu-icon {
-    margin-right: 0.3rem;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #4e4141;
+}
+
+.menu-left {
+  display: flex;
+  gap: 2rem;
+}
+
+.menu-center {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;  /* Это заставляет центральную группу занимать доступное пространство */
+  gap: 2rem;
+}
+
+.menu-right {
+  display: flex;
+  gap: 2rem;
+}
+
+.menu-link {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.menu-link:hover {
+  color: rgb(0, 0, 0);
+}
+
+.activeLink {
+  color: lightyellow;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: color 0.2s ease;
+}
+
+.profile-icon {
+  color: #3498db;
+  transition: none;
+}
+
+.profile-text {
+  transition: color 0.2s ease;
+}
+
+.profile-link:hover .profile-text {
+  color: black;
+}
+
+.profile-link.active .profile-icon {
+  color: #3498db;
+}
+
+.menu-icon {
+  margin-right: 0.3rem;
+}
