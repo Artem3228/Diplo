@@ -1,6 +1,18 @@
 import { BookOpen, Award, TrendingUp, Users, Star } from 'react-feather';
 import { Button } from 'react-bootstrap';
 import './styles/Home.css';
+import telegramIcon from './photo/telegram_icon.png';
+import dicordIcon from './photo/discord-icon.gif';
+import VKIcon from './photo/vk-icon.png';
+
+const getCourseImage = (category) => {
+  const images = {
+    'IT': 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    'Дизайн': 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    'Маркетинг': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+  };
+  return images[category] || 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60';
+};
 
 const Home = () => {
   // Статистика платформы
@@ -85,24 +97,66 @@ const Home = () => {
           </div>
         </div>
       </section>
+      
 
       {/* Популярные курсы */}
-<section className="popular-courses py-5" style={{ backgroundColor: '#4e4141' }}>
-  <div className="container">
-    <h2 className="section-title text-center text-white mb-5">Популярные курсы</h2>
-    <div className="row">
+<section className="popular-courses-section py-5" style={{ backgroundColor: '#4e4141' }}>
+  <div className="container d-flex flex-column justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
+    <h2 className="section-title text-white mb-5">Популярные курсы</h2>
+    <div className="row w-100">
       {popularCourses.map((course, index) => (
         <div className="col-md-4 mb-4" key={index}>
-          <div className="course-card h-100 p-4 text-center" style={{ backgroundColor: '#ddb137', borderRadius: '10px' }}>
-            <h3 className="course-title mb-3">{course.title}</h3>
-            <div className="xp-wrapper d-flex justify-content-center align-items-center mb-4">
-              <Star className="text-dark me-2" />
-              <span className="xp-text">{course.xp} XP за прохождение</span>
+          <div 
+            className="course-card h-100 p-4 text-center position-relative"
+            style={{
+              borderRadius: '10px',
+              overflow: 'hidden',
+              minHeight: '350px', // Увеличена высота карточки
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-start', // Изменено с space-between
+              alignItems: 'center', // Добавлено выравнивание по центру
+              background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${getCourseImage(course.category)})`, 
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              color: 'white'
+            }}
+          >
+            <h3 
+              className="course-title mb-4" 
+              style={{
+                fontSize: '1.8rem', // Увеличен размер шрифта
+                fontWeight: '600',
+                textAlign: 'center',
+                width: '100%',
+                padding: '0 15px' // Добавлены отступы по бокам
+              }}
+            >
+              {course.title}
+            </h3>
+            <div 
+              className="xp-wrapper d-flex justify-content-center align-items-center mb-4"
+              style={{
+                background: 'rgba(255,255,255,0.2)',
+                padding: '8px 20px',
+                borderRadius: '20px',
+                backdropFilter: 'blur(5px)'
+              }}
+            >
+              <span className="xp-icon"> ☆ </span>
+              <span className="xp-text ms-2">{course.xp} XP за прохождение ☆ </span>
             </div>
             <Button 
-              variant="dark" 
+              variant="light" 
               className="details-btn"
-              style={{ borderRadius: '20px', padding: '8px 25px' }}
+              style={{ 
+                borderRadius: '20px', 
+                padding: '10px 35px', // Увеличены отступы
+                width: 'fit-content',
+                fontSize: '2rem', // Увеличен размер шрифта
+                fontWeight: '600', // Жирный шрифт
+                marginTop: 'auto' // Прижимаем к низy
+              }}
             >
               Подробнее
             </Button>
@@ -113,15 +167,49 @@ const Home = () => {
   </div>
 </section>
 
-      {/* Призыв к действию */}
-      <section className="py-5 bg-dark text-white text-center">
-        <div className="container py-4">
-          <h2 className="mb-4">Готовы начать свое обучение?</h2>
-          <Button variant="light" size="lg">
-            Зарегистрироваться
-          </Button>
-        </div>
-      </section>
+<section className="cta-section py-5" style={{ backgroundColor: '#ddb137' }}>
+  <div className="container">
+    <div className="d-flex justify-content-between align-items-center mb-4">
+      {/* Заголовок */}
+      <h2 className="mb-0" style={{ 
+        fontSize: '2rem', 
+        fontWeight: '500', 
+        color: '#ffffff'
+      }}>
+        Готовы начать свое обучение?
+      </h2>
+      
+      {/* Иконки соцсетей */}
+      <div className="social-links d-flex">
+      <a href="https://web.telegram.org" className="mx-2">
+          <img src={telegramIcon} alt="Telegram" style={{ fontSize: '2rem', width: '40px', height: '40px' }} />
+        </a>
+        <a href="https://discord.gg/yourlink" className="mx-2">
+          <img src={dicordIcon} alt="Discord" style={{ fontSize: '2rem',  width: '40px', height: '40px' }} />
+        </a>
+        <a href="https://vk.com/yourpage" className="mx-2">
+          <img src={VKIcon} alt="VK" style={{ fontSize: '2rem', width: '40px', height: '40px' }} />
+        </a>
+      </div>
+    </div>
+
+    {/* Кнопка */}
+    <div className="text-center">
+      <Button 
+        variant="dark" 
+        size="lg"
+        style={{ 
+          borderRadius: '20px', 
+          padding: '15px 50px',
+          fontSize: '1.8rem',
+          fontWeight: '600'
+        }}
+      >
+        В путь!
+      </Button>
+    </div>
+  </div>
+</section>
     </div>
   );
 };
