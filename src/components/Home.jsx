@@ -1,4 +1,4 @@
-import { BookOpen, Code, Globe, Activity, Users, Star } from 'react-feather';
+import { BookOpen, Code, Globe, Activity, Award, Star, Users } from 'react-feather';
 import { Button } from 'react-bootstrap';
 import './styles/Home.css';
 import telegramIcon from './photo/telegram_icon.png';
@@ -16,12 +16,6 @@ const getCourseImage = (category) => {
 };
 
 const Home = () => {
-  // Статистика платформы
-  const stats = [
-    { value: '150+', label: 'Курсов', icon: <BookOpen size={24} /> },
-    { value: '25k+', label: 'Студентов', icon: <Users size={24} /> },
-    { value: '98%', label: 'Удовлетворенности', icon: <Star size={24} /> }
-  ];
 
   // Популярные курсы
   const popularCourses = [
@@ -131,26 +125,78 @@ const Home = () => {
 </section>
 
 
-      {/* Статистика */}
-      <section className="py-5 bg-light">
-        <div className="container">
-          <div className="row g-4 text-center">
-            {stats.map((stat, index) => (
-              <div className="col-md-4" key={index}>
-                <div className="d-flex align-items-center justify-content-center gap-3">
-                  <div className="text-primary">{stat.icon}</div>
-                  <div>
-                    <h3 className="mb-0">{stat.value}</h3>
-                    <p className="mb-0">{stat.label}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      
 
+{/* Лидерборд */}
+<section className="leaderboard-section py-5" style={{ backgroundColor: '#4e4141' }}>
+  <div className="container">
+    <h2 className="text-center mb-5" style={{ 
+      fontSize: '2.5rem', 
+      color: '#ddb137',
+      fontWeight: '700',
+      marginBottom: '4rem',
+      paddingTop: '2rem'
+    }}>
+      Лидерборд
+    </h2>
+
+    <div className="horizontal-scroll-wrapper">
+      <div className="leaderboard-row">
+        {[
+          { 
+            name: 'Алексей Петров', 
+            xp: 2599, 
+            avatar: 'https://i.pravatar.cc/150?img=1', 
+            position: 1 
+          },
+          { 
+            name: 'Мария Иванова', 
+            xp: 200, 
+            avatar: 'https://i.pravatar.cc/150?img=2', 
+            position: 2 
+          },
+          { 
+            name: 'Дмитрий Сидоров', 
+            xp: 1500, 
+            avatar: 'https://i.pravatar.cc/150?img=3', 
+            position: 3 
+          },
+          { 
+            name: 'Ольга Козлова', 
+            xp: 200, 
+            avatar: 'https://i.pravatar.cc/150?img=4', 
+            position: 4 
+          },
+          { 
+            name: 'Иван Новиков', 
+            xp: 1500, 
+            avatar: 'https://i.pravatar.cc/150?img=5', 
+            position: 5 
+          }
+        ].map((user) => (
+          <div 
+            key={user.position} 
+            className={`circle-card ${user.position === 1 ? 'top-1' : ''}`}
+          >
+            <div className="position-badge">#{user.position}</div>
+            <img 
+              src={user.avatar} 
+              alt={user.name} 
+              className="user-avatar"
+            />
+            <div className="circle-content">
+              <h4 className="user-name">{user.name}</h4>
+              <div className="xp-value">
+                <Star size={20} className="me-2" />
+                {user.xp} XP
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+      
 
 
       {/* Популярные курсы */}
