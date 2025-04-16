@@ -1,9 +1,10 @@
-import { BookOpen, Award, TrendingUp, Users, Star } from 'react-feather';
+import { BookOpen, Code, Globe, Activity, Users, Star } from 'react-feather';
 import { Button } from 'react-bootstrap';
 import './styles/Home.css';
 import telegramIcon from './photo/telegram_icon.png';
 import dicordIcon from './photo/discord-icon.gif';
 import VKIcon from './photo/vk-icon.png';
+import React from 'react';
 
 const getCourseImage = (category) => {
   const images = {
@@ -49,35 +50,86 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Преимущества */}
-      <section className="py-5">
-        <div className="container">
-          <h2 className="text-center mb-5">Почему выбирают нас</h2>
-          <div className="row g-4">
-            <div className="col-md-4 text-center">
-              <div className="p-4 bg-light rounded-3 h-100">
-                <Award size={48} className="text-warning mb-3" />
-                <h4>Система достижений</h4>
-                <p>Зарабатывайте бейджи и награды за ваши успехи</p>
-              </div>
+
+
+{/* Преимущества */}
+<section className="benefits-section py-5" style={{ backgroundColor: '#4e4141' }}>
+  <div className="container">
+    <h2 className="benefits-title text-center" style={{ 
+      fontSize: '3.5rem', 
+      color: '#ffffff',
+      textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+      marginBottom: '3rem', // Увеличен отступ до 7rem
+      paddingTop: '2rem'
+    }}>
+      Вы получите невероятный опыт!
+    </h2>
+    
+    <div 
+      className="row g-5" 
+      style={{ 
+        marginBottom: '0.1rem', // Добавлен отступ снизу
+        transform: 'scale(0.97)' // Уменьшение размера на 3%
+      }}
+    >
+      {[
+        { 
+          icon: <Code size={48} />, 
+          title: 'Технические знания', 
+          text: 'Освойте языки программирования, и их понимание для лучшей разработки',
+          desc: 'Python, JavaScript, React, алгоритмы и структуры данных', // Исправлены опечатки
+          border: '#ddb137'
+        },
+        { 
+          icon: <BookOpen size={48} />, 
+          title: 'Прохождение курсов', 
+          text: 'Интерактивные уроки с мгновенной проверкой заданий',
+          desc: 'Система рейтинга, персональный ментор, проектная работа',
+          border: '#c9a235'
+        },
+        { 
+          icon: <Globe size={48} />, 
+          title: 'Технический английский', 
+          text: 'Способ найти и выучить новые слова и использовать их в документации',
+          desc: 'IT-лексикон, технические статьи, видеоуроки с носителями',
+          border: '#b58d32'
+        },
+        { 
+          icon: <Activity size={48} />, 
+          title: 'Увлеченность в учебе', 
+          text: 'Геймификационное обучение с системой достижений',
+          desc: 'Интерактивные симуляции, VR-лаборатории, соревнования',
+          border: '#9e782e'
+        }
+      ].map((item, index) => (
+        <div className="col-md-6" key={index}>
+          <div 
+            className="skill-card p-4 h-100"
+            style={{ 
+              backgroundColor: '#4e4141', // Полностью убран прозрачный фон
+              border: `3px solid ${item.border}`,
+              borderRadius: '15px',
+              minHeight: '280px' // Уменьшена высота
+            }}
+          >
+            <div className="icon-wrapper mb-3">
+              {React.cloneElement(item.icon, { 
+                className: 'skill-icon',
+                color: item.border 
+              })}
             </div>
-            <div className="col-md-4 text-center">
-              <div className="p-4 bg-light rounded-3 h-100">
-                <TrendingUp size={48} className="text-danger mb-3" />
-                <h4>Быстрый прогресс</h4>
-                <p>Интерактивные задания ускорят ваше обучение</p>
-              </div>
-            </div>
-            <div className="col-md-4 text-center">
-              <div className="p-4 bg-light rounded-3 h-100">
-                <Users size={48} className="text-info mb-3" />
-                <h4>Соревнования</h4>
-                <p>Сравнивайте свой прогресс с другими студентами</p>
-              </div>
+            <h3 className="text-white mb-3">{item.title}</h3>
+            <p className="text-muted">{item.text}</p>
+            <div className="expand-content">
+              <p className="text-warning mt-3">{item.desc}</p>
             </div>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Статистика */}
       <section className="py-5 bg-light">
@@ -99,6 +151,8 @@ const Home = () => {
       </section>
       
 
+
+
       {/* Популярные курсы */}
 <section className="popular-courses-section py-5" style={{ backgroundColor: '#4e4141' }}>
   <div className="container d-flex flex-column justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
@@ -111,7 +165,7 @@ const Home = () => {
             style={{
               borderRadius: '10px',
               overflow: 'hidden',
-              minHeight: '350px', // Увеличена высота карточки
+              minHeight: '300px', // Увеличена высота карточки
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'flex-start', // Изменено с space-between
@@ -167,31 +221,20 @@ const Home = () => {
   </div>
 </section>
 
+
+
+
 <section className="cta-section py-5" style={{ backgroundColor: '#ddb137' }}>
   <div className="container">
-    <div className="d-flex justify-content-between align-items-center mb-4">
+  <div className="text-center mb-5">
       {/* Заголовок */}
-      <h2 className="mb-0" style={{ 
+      <h2 className="mb-4" style={{ 
         fontSize: '2rem', 
         fontWeight: '500', 
-        color: '#ffffff'
+        color: 'black',
       }}>
         Готовы начать свое обучение?
       </h2>
-      
-      {/* Иконки соцсетей */}
-      <div className="social-links d-flex">
-      <a href="https://web.telegram.org" className="mx-2">
-          <img src={telegramIcon} alt="Telegram" style={{ fontSize: '2rem', width: '40px', height: '40px' }} />
-        </a>
-        <a href="https://discord.gg/yourlink" className="mx-2">
-          <img src={dicordIcon} alt="Discord" style={{ fontSize: '2rem',  width: '40px', height: '40px' }} />
-        </a>
-        <a href="https://vk.com/yourpage" className="mx-2">
-          <img src={VKIcon} alt="VK" style={{ fontSize: '2rem', width: '40px', height: '40px' }} />
-        </a>
-      </div>
-    </div>
 
     {/* Кнопка */}
     <div className="text-center">
@@ -200,13 +243,30 @@ const Home = () => {
         size="lg"
         style={{ 
           borderRadius: '20px', 
-          padding: '15px 50px',
+          padding: '15px 100px',
           fontSize: '1.8rem',
-          fontWeight: '600'
+          fontWeight: '700',
+          
         }}
       >
         В путь!
       </Button>
+    </div>
+    {/* Иконки соцсетей */}
+    <div className="social-links d-flex gap-3" style={{  
+        flexShrink: 0,
+        flexWrap: 'nowrap' 
+      }}>
+        <a href="https://web.telegram.org" className="mx-2">
+          <img src={telegramIcon} alt="Telegram" style={{ width: '80px', height: '40px' }} />
+        </a>
+        <a href="https://discord.gg/yourlink" className="mx-2">
+          <img src={dicordIcon} alt="Discord" style={{ width: '200px', height: '100px' }} />
+        </a>
+        <a href="https://vk.com/yourpage" className="mx-2">
+          <img src={VKIcon} alt="VK" style={{ width: '50px', height: '40px' }} />
+        </a>
+      </div>
     </div>
   </div>
 </section>

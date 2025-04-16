@@ -1,10 +1,11 @@
 import { Button } from "react-bootstrap";
 import { Award, Clock, Users, BookOpen, Globe, Video } from "react-feather";
+import './styles/Home.css'
 
 const About = () => {
   // Статистика платформы
   const platformStats = {
-    totalCourses: 156,
+    totalCourses: 3,
     activeUsers: 28450,
     lessonsCompleted: 1250000,
     instructors: 87
@@ -22,6 +23,9 @@ const About = () => {
           </p>
         </div>
       </section>
+
+
+
 
       {/* Особенности платформы */}
       <section className="features-section py-5">
@@ -59,6 +63,9 @@ const About = () => {
         </div>
       </section>
 
+
+
+
       {/* Как это работает */}
       <section className="how-it-works py-5 bg-light">
         <div className="container">
@@ -90,6 +97,8 @@ const About = () => {
           </div>
         </div>
       </section>
+
+
 
       {/* Статистика платформы */}
       <section className="platform-stats py-5">

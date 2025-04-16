@@ -27,6 +27,8 @@
   100% { transform: scale(1); }
 }
 
+
+
 /* Герой-секция */
 .hero-section {
   background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -50,6 +52,9 @@
   opacity: 0.9;
 }
 
+
+
+
 /* Кнопки с анимацией */
 .btn-light, .btn-outline-light {
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -67,14 +72,66 @@
   transform: translateY(-3px);
 }
 
-/* Карточки преимуществ */
+
+
+
+/* Анимации */
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes iconPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* Стили секции */
+.features-section {
+  background-color: #4e4141;
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.features-section h2 {
+  color: #fff;
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  margin-bottom: 4rem;
+  position: relative;
+  animation: cardEntrance 0.8s ease-out;
+}
+
+.features-section h2::after {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 4px;
+  background: #ddb137;
+  margin: 1.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* Стили карточек */
 .feature-card {
+  background: rgba(80, 80, 80, 0.705) !important;
+  border: none !important;
+  border-radius: 15px !important;
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  border: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  animation: fadeIn 0.6s ease-out;
-  animation-fill-mode: both;
-  background: white;
+  animation: cardEntrance 0.6s ease-out forwards;
+  opacity: 0;
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(5px);
+  margin-bottom: 1.5rem;
 }
 
 .feature-card:nth-child(1) { animation-delay: 0.2s; }
@@ -82,18 +139,185 @@
 .feature-card:nth-child(3) { animation-delay: 0.6s; }
 
 .feature-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 45px rgba(0,0,0,0.2);
 }
 
+/* Стили иконок */
 .feature-card svg {
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  animation: iconPulse 2s infinite;
+}
+
+.feature-card:hover svg {
+  transform: rotate(-5deg) scale(1.1);
+  animation: none;
+}
+
+/* Текст в карточках */
+.feature-card h4 {
+  color: #fdfdfd;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 1.2rem 0;
+  letter-spacing: -0.5px;
+}
+
+.feature-card p {
+  color: #feffff;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  padding: 0 1.5rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .features-section h2 {
+    font-size: 2.2rem;
+    padding: 0 15px;
+  }
+  
+  .feature-card {
+    margin: 0 auto 2rem;
+    max-width: 350px;
+  }
+}
+
+
+
+
+
+/* Сетка 2x2 */
+.benefits-section .row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+/* Фиксированные отступы */
+.benefits-section .container {
+  padding-bottom: 4rem;
+}
+
+/* Адаптивные размеры */
+@media (max-width: 1200px) {
+  .skill-card {
+    min-height: 260px !important;
+  }
+  
+  .benefits-title {
+    margin-bottom: 5rem !important;
+    font-size: 3rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .row.g-5 {
+    transform: scale(1) !important;
+  }
+  
+  .skill-card {
+    min-height: 240px !important;
+    margin-bottom: 2rem;
+  }
+}
+/* Карточки */
+.skill-card {
+  transition: all 0.3s ease;
+  transform: translateZ(0); /* Аппаратное ускорение */
+  will-change: transform;
+  position: relative;
+  overflow: hidden;
+  min-height: 250px;
+  backdrop-filter: none !important;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.skill-card:hover {
+  transform: scale(1.02) translateZ(0);
+ /* backdrop-filter: blur(2px); Минимальное размытие */
+}
+
+/* Анимация иконок */
+.skill-icon {
+  transition: all 0.3s;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.skill-card:hover .skill-icon {
+  transform: rotate(15deg) scale(1.2);
+  animation: icon-pulse 1.5s infinite;
+}
+
+@keyframes icon-pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Текст */
+.expand-content {
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.skill-card:hover .expand-content {
+  max-height: 100px;
+  opacity: 1;
+}
+
+.benefits-section h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* Отступы для мобильных */
+@media (max-width: 768px) {
+  .benefits-title {
+    margin-bottom: 3rem !important;
+    font-size: 2.5rem !important;
+  }
+  
+  .skill-card {
+    margin-bottom: 2rem;
+  }
+}
+.skill-card * {
+  transition: opacity 0.3s;
+}
+.skill-card:hover * {
+  opacity: 1 !important;
+}
+
+
+/* Анимация иконок */
+.feature-card svg {
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
 .feature-card:hover svg {
   transform: scale(1.1) rotate(5deg);
-  animation: pulse 1.5s infinite;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
 }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .features-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .feature-card {
+    margin-bottom: 1.5rem;
+  }
+}
+
+
+
+
 
 /* Статистика */
 .stats-section {
@@ -124,6 +348,9 @@
   transform: scale(1.2);
 }
 
+
+
+
 /* Секция популярных курсов */
 .popular-courses-section {
   background-color: var(--dark-bg);
@@ -131,7 +358,7 @@
 }
 
 .section-title {
-  font-size: 2.2rem;
+  font-size: 3rem;
   font-weight: 700;
   color: white;
   margin-bottom: 3rem;
@@ -223,27 +450,18 @@
   font-weight: 600;
 }
 
-.cta-section {
-  position: relative;
-  background-color: #ddb137;
-  padding: 1rem 0;
+.cta-section .container > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-  .d-flex.justify-content-between {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .social-links {
-    margin-top: 1.5rem;
-    justify-content: center !important;
-  }
-  
-  h2 {
-    margin-bottom: 1rem !important;
-  }
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
 }
 
 .details-btn{
